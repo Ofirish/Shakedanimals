@@ -1,10 +1,15 @@
 // Predefined list of cute animal YouTube video IDs
 const cuteAnimalVideos = [
-  'dQw4w9WgXcQ', // Example video ID (replace with actual IDs)
-  'kJQP7kiw5Fk',
-  'RgKAFK5djSk',
-  'OPf0YbXqDm0',
-  'CevxZvSJLk8'
+  'kJQP7kiw5Fk', // Funny Cats Compilation
+  'RgKAFK5djSk', // Funny Dogs Compilation
+  'OPf0YbXqDm0', // Baby Animals Compilation
+  'd2MkHQ7HRlc', // Cute Pandas Playing
+  'epUk3T2Kfno', // Funny Otters Compilation
+  '6qL1ZO3GpXw', // Cute Rabbits Hopping
+  'GJMhv-0hWkE', // Baby Elephants Playing
+  '4v9Gxr2LpRw', // Cute Hedgehogs Eating
+  '2q1tO8nqR6A', // Funny Parrots Talking
+  '1D2XkY9XWio'  // Cute Sloths Being Adorable
 ];
 
 // DOM elements
