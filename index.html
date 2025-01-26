@@ -3,29 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cute Animals For Shaked 🤍</title>
+  <title>Cat Physics Golf</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Cute Animals For Shaked 🤍</h1>
-    <div class="content">
-      <!-- YouTube video embed -->
-      <iframe id="youtubeVideo" width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display:none;"></iframe>
-      <p id="noVideoMessage" style="display:none;">No video found.</p>
+  <div class="game-container">
+    <div id="game"></div>
+    <div class="hud">
+      <p>Moves: <span id="moves">0</span></p>
+      <p>Level: <span id="level">1</span></p>
+      <p>Score: <span id="score">0</span></p>
     </div>
-    <div class="buttons">
-      <button id="fetchButton">Fetch Cute Animal Video</button>
-      <button id="shareButton">Share on WhatsApp</button>
-    </div>
-    <button id="musicButton" class="music-button">🎵</button>
-    <audio id="relaxingMusic">
-      <source src="mysite/test.mp3" type="audio/mpeg">
-      <source src="mysite/test.ogg" type="audio/ogg">
-      <source src="mysite/test.wav" type="audio/wav">
-      Your browser does not support the audio element.
-    </audio>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
