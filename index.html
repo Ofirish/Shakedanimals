@@ -10,10 +10,9 @@
   <div class="container">
     <h1>Cute Animals For Shaked 🤍</h1>
     <div class="content">
-      <!-- Video element for Reddit-hosted videos -->
-      <video id="redditVideo" controls style="display:none; width: 100%; max-width: 560px; height: auto;"></video>
-      <!-- Fallback message if no video is found -->
-      <p id="noVideoMessage" style="display:none;">No video found in this post.</p>
+      <!-- YouTube video embed -->
+      <iframe id="youtubeVideo" width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display:none;"></iframe>
+      <p id="noVideoMessage" style="display:none;">No video found.</p>
     </div>
     <div class="buttons">
       <button id="fetchButton">Fetch Cute Animal Video</button>
