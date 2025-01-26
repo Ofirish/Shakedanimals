@@ -28,25 +28,37 @@ let cat, ball;
 
 // Load assets
 const catImage = new Image();
-catImage.src = 'https://raw.githubusercontent.com/Ofirish/Shakedanimals/refs/heads/main/Cat.png'; // Ensure this path is correct
+catImage.src = 'https://raw.githubusercontent.com/Ofirish/Shakedanimals/refs/heads/main/Cat.png';
 
 const ballImage = new Image();
-ballImage.src = 'https://raw.githubusercontent.com/Ofirish/Shakedanimals/refs/heads/main/Ball.png'; // Ensure this path is correct
+ballImage.src = 'https://raw.githubusercontent.com/Ofirish/Shakedanimals/refs/heads/main/Ball.png'; // Update this path if needed
 
-// Background music
-const music = new Howl({
-  src: ['music.mp3'],
-  loop: true,
-  volume: 0.5
+// Wait for images to load
+Promise.all([
+  new Promise((resolve) => {
+    catImage.onload = resolve;
+    catImage.onerror = () => {
+      console.error('Failed to load cat image');
+      resolve();
+    };
+  }),
+  new Promise((resolve) => {
+    ballImage.onload = resolve;
+    ballImage.onerror = () => {
+      console.error('Failed to load ball image');
+      resolve();
+    };
+  })
+]).then(() => {
+  // Images are loaded, now generate the level
+  generateLevel();
 });
-music.play();
 
-// Generate a random level
 function generateLevel() {
   // Clear existing bodies
   World.clear(world);
 
-  // Add invisible walls to constrain objects to the screen
+  // Add walls
   const walls = [
     Bodies.rectangle(window.innerWidth / 2, 0, window.innerWidth, 10, { isStatic: true, render: { visible: false } }), // Top
     Bodies.rectangle(window.innerWidth / 2, window.innerHeight, window.innerWidth, 10, { isStatic: true, render: { visible: false } }), // Bottom
@@ -55,11 +67,11 @@ function generateLevel() {
   ];
   World.add(world, walls);
 
-  // Add 
-  cat = Bodies.circle(100, 100, 30, {
+  // Add cat
+  const cat = Bodies.circle(100, 100, 30, {
     render: {
       sprite: {
-        texture: '.png',
+        texture: catImage.src,
         xScale: 0.5,
         yScale: 0.5
       }
@@ -70,10 +82,10 @@ function generateLevel() {
   World.add(world, cat);
 
   // Add ball
-  ball = Bodies.circle(window.innerWidth - 100, window.innerHeight - 100, 20, {
+  const ball = Bodies.circle(window.innerWidth - 100, window.innerHeight - 100, 20, {
     render: {
       sprite: {
-        texture: 'ball.png',
+        texture: ballImage.src,
         xScale: 0.5,
         yScale: 0.5
       }
@@ -83,7 +95,6 @@ function generateLevel() {
   World.add(world, ball);
 
   // Add random obstacles (walls, sand traps, portals, etc.)
-  // Example: Add a sand trap
   const sandTrap = Bodies.rectangle(window.innerWidth / 2, window.innerHeight / 2, 200, 20, {
     isStatic: true,
     render: {
@@ -93,9 +104,6 @@ function generateLevel() {
   });
   World.add(world, sandTrap);
 }
-
-// Initialize game
-generateLevel();
 
 // Mouse control
 if (render && render.canvas) {
