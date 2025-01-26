@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  overflow: hidden;
   font-family: Arial, sans-serif;
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
@@ -9,7 +10,6 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  overflow: hidden;
 }
 
 @keyframes glowingBackground {
@@ -18,72 +18,29 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-.container {
-  text-align: center;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+.game-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-h1 {
-  color: #333;
-  margin-bottom: 20px;
+#game {
+  width: 100%;
+  height: 100%;
 }
 
-.content {
-  margin: 20px 0;
-}
-
-#youtubeVideo {
-  max-width: 100%;
-  border-radius: 10px;
-}
-
-.buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #ff6f61;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #ff3b2f;
-}
-
-.music-button {
-  position: fixed;
+.hud {
+  position: absolute;
   top: 20px;
-  right: 20px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #ff6f61;
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.music-button:hover {
-  background-color: #ff3b2f;
-}
-
-/* Hide the audio controls */
-audio {
-  display: none;
+.hud p {
+  margin: 5px 0;
+  font-size: 18px;
+  color: #333;
 }
