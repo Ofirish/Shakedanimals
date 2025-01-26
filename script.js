@@ -28,10 +28,10 @@ let cat, ball;
 
 // Load assets
 const catImage = new Image();
-catImage.src = 'https://github.com/Ofirish/Shakedanimals/blob/main/Cat.png'; // Ensure this path is correct
+catImage.src = 'Cat.png'; // Ensure this path is correct
 
 const ballImage = new Image();
-ballImage.src = 'https://github.com/Ofirish/Shakedanimals/blob/main/ball.png'; // Ensure this path is correct
+ballImage.src = 'Ball.png'; // Ensure this path is correct
 
 // Background music
 const music = new Howl({
@@ -55,11 +55,11 @@ function generateLevel() {
   ];
   World.add(world, walls);
 
-  // Add cat
+  // Add 
   cat = Bodies.circle(100, 100, 30, {
     render: {
       sprite: {
-        texture: 'cat.png',
+        texture: '.png',
         xScale: 0.5,
         yScale: 0.5
       }
