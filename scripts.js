@@ -1,46 +1,57 @@
-// Fetch a random cute animal video from Pexels
+// Reddit API endpoint for fetching cute animal videos
+const REDDIT_API_URL = 'https://www.reddit.com/r/aww/top.json?limit=100&t=week';
+
+// DOM elements
 const fetchButton = document.getElementById('fetchButton');
-const animalImage = document.getElementById('animalImage');
-const animalVideo = document.getElementById('animalVideo');
+const redditVideo = document.getElementById('redditVideo');
+const noVideoMessage = document.getElementById('noVideoMessage');
 const shareButton = document.getElementById('shareButton');
 const musicButton = document.getElementById('musicButton');
 const relaxingMusic = document.getElementById('relaxingMusic');
 
-// Pexels API key (replace with your own key)
-const PEXELS_API_KEY = 'YOUR_PEXELS_API_KEY'; // Get it from https://www.pexels.com/api/
-
+// Fetch a random cute animal video from Reddit
 fetchButton.addEventListener('click', async () => {
   try {
-    // Fetch a random cute animal video from Pexels
-    const response = await fetch('https://api.pexels.com/videos/search?query=cute+animals&per_page=1', {
-      headers: {
-        Authorization: PEXELS_API_KEY,
-      },
-    });
-
+    // Fetch posts from the Reddit API
+    const response = await fetch(REDDIT_API_URL);
     const data = await response.json();
-    if (data.videos && data.videos.length > 0) {
-      const videoUrl = data.videos[0].video_files[0].link; // Get the first video URL
-      animalVideo.src = videoUrl;
-      animalVideo.style.display = 'block';
-      animalImage.style.display = 'none';
+
+    if (data.data && data.data.children.length > 0) {
+      // Filter posts that contain videos
+      const postsWithVideos = data.data.children.filter(post => {
+        return post.data.is_video || post.data.url.includes('v.redd.it') || post.data.url.includes('youtube.com');
+      });
+
+      if (postsWithVideos.length > 0) {
+        // Randomly select a post with a video
+        const randomPost = postsWithVideos[Math.floor(Math.random() * postsWithVideos.length)];
+        const videoUrl = randomPost.data.is_video ? randomPost.data.media.reddit_video.fallback_url : randomPost.data.url;
+
+        // Set the video URL in the <video> element
+        redditVideo.src = videoUrl;
+        redditVideo.style.display = 'block';
+        noVideoMessage.style.display = 'none';
+      } else {
+        redditVideo.style.display = 'none';
+        noVideoMessage.style.display = 'block';
+      }
     } else {
-      alert('No videos found. Please try again.');
+      alert('No posts found. Please try again.');
     }
   } catch (error) {
     console.error('Error fetching video:', error);
-    alert('Failed to fetch video. Please check your API key or try again later.');
+    alert('Failed to fetch video. Please try again later.');
   }
 });
 
 // Share on WhatsApp
 shareButton.addEventListener('click', () => {
-  const mediaUrl = animalImage.src || animalVideo.src;
-  if (mediaUrl) {
-    const shareUrl = `https://api.whatsapp.com/send?text=Check out this cute animal! ${mediaUrl}`;
+  const videoUrl = redditVideo.src;
+  if (videoUrl) {
+    const shareUrl = `https://api.whatsapp.com/send?text=Check out this cute animal video! ${videoUrl}`;
     window.open(shareUrl, '_blank');
   } else {
-    alert('Please fetch a cute animal first!');
+    alert('Please fetch a cute animal video first!');
   }
 });
 
