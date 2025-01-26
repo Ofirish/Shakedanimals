@@ -1,5 +1,5 @@
 // Initialize Matter.js
-const { Engine, Render, Runner, World, Bodies, Mouse, MouseConstraint, Composite } = Matter;
+const { Engine, Render, Runner, World, Bodies, Mouse, MouseConstraint } = Matter;
 
 // Create engine and renderer
 const engine = Engine.create();
@@ -60,4 +60,103 @@ function generateLevel() {
     render: {
       sprite: {
         texture: 'cat.png',
-        xScale: 0.5
+        xScale: 0.5,
+        yScale: 0.5
+      }
+    },
+    restitution: 0.8, // Bounciness
+    friction: 0.1 // Slipperiness
+  });
+  World.add(world, cat);
+
+  // Add ball
+  ball = Bodies.circle(window.innerWidth - 100, window.innerHeight - 100, 20, {
+    render: {
+      sprite: {
+        texture: 'ball.png',
+        xScale: 0.5,
+        yScale: 0.5
+      }
+    },
+    isStatic: true // Ball doesn't move
+  });
+  World.add(world, ball);
+
+  // Add random obstacles (walls, sand traps, portals, etc.)
+  // Example: Add a sand trap
+  const sandTrap = Bodies.rectangle(window.innerWidth / 2, window.innerHeight / 2, 200, 20, {
+    isStatic: true,
+    render: {
+      fillStyle: '#f4d03f',
+      opacity: 0.8
+    }
+  });
+  World.add(world, sandTrap);
+}
+
+// Initialize game
+generateLevel();
+
+// Mouse control
+if (render && render.canvas) {
+  const mouse = Mouse.create(render.canvas);
+  const mouseConstraint = MouseConstraint.create(engine, {
+    mouse: mouse,
+    constraint: {
+      stiffness: 0.2,
+      render: {
+        visible: false
+      }
+    }
+  });
+  World.add(world, mouseConstraint);
+
+  // Track moves
+  let isDragging = false;
+  mouseConstraint.mouse.element.addEventListener('mousedown', () => {
+    isDragging = true;
+  });
+
+  mouseConstraint.mouse.element.addEventListener('mouseup', () => {
+    if (isDragging) {
+      moves++;
+      document.getElementById('moves').textContent = moves;
+      isDragging = false;
+    }
+  });
+} else {
+  console.error('Render or canvas not initialized!');
+}
+
+// Check for win condition
+Matter.Events.on(engine, 'collisionStart', (event) => {
+  const pairs = event.pairs;
+  for (let pair of pairs) {
+    if (pair.bodyA === cat && pair.bodyB === ball || pair.bodyA === ball && pair.bodyB === cat) {
+      alert(`You won in ${moves} moves!`);
+      score += 100 - moves; // Bonus for fewer moves
+      document.getElementById('score').textContent = score;
+      level++;
+      document.getElementById('level').textContent = level;
+      generateLevel();
+      moves = 0;
+      document.getElementById('moves').textContent = moves;
+    }
+  }
+});
+
+// Save game state to localStorage
+window.addEventListener('beforeunload', () => {
+  localStorage.setItem('catPhysicsGame', JSON.stringify({ level, score }));
+});
+
+// Load game state from localStorage
+const savedGame = JSON.parse(localStorage.getItem('catPhysicsGame'));
+if (savedGame) {
+  level = savedGame.level;
+  score = savedGame.score;
+  document.getElementById('level').textContent = level;
+  document.getElementById('score').textContent = score;
+}
+
+console.log('Game initialized!');
