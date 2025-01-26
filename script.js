@@ -28,7 +28,7 @@ let cat, ball;
 
 // Load assets
 const catImage = new Image();
-catImage.src = 'Cat.png'; // Ensure this path is correct
+catImage.src = 'CatFace.png'; // Ensure this path is correct
 
 const ballImage = new Image();
 ballImage.src = 'Ball.png'; // Ensure this path is correct
