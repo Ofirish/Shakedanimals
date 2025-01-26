@@ -28,10 +28,10 @@ let cat, ball;
 
 // Load assets
 const catImage = new Image();
-catImage.src = 'CatFace.png'; // Ensure this path is correct
+catImage.src = 'https://raw.githubusercontent.com/Ofirish/Shakedanimals/refs/heads/main/Cat.png'; // Ensure this path is correct
 
 const ballImage = new Image();
-ballImage.src = 'Ball.png'; // Ensure this path is correct
+ballImage.src = 'https://raw.githubusercontent.com/Ofirish/Shakedanimals/refs/heads/main/Ball.png'; // Ensure this path is correct
 
 // Background music
 const music = new Howl({
