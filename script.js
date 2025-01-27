@@ -66,7 +66,7 @@ Matter.Events.on(mouseConstraint, 'mousemove', () => {
 World.add(world, [circle, ...walls, mouseConstraint]);
 
 // Run the engine and renderer
-Engine.run(engine);
+Matter.Runner.run(engine); // Use Matter.Runner.run instead of Engine.run
 Render.run(render);
 
 // Avatar click functionality
@@ -86,17 +86,17 @@ avatars.forEach(avatar => {
         circle.render.sprite = undefined; // Remove sprite if any
         break;
       case 'cat':
-        circle.render.fillStyle = '#ffffff'; // White background for emoji
+        circle.render.fillStyle = '#ffffff'; // White background for image
         circle.render.sprite = {
-          texture: '🐱', // Cat emoji
+          texture: 'https://via.placeholder.com/50x50?text=🐱', // Cat image URL
           xScale: 1,
           yScale: 1,
         };
         break;
       case 'dog':
-        circle.render.fillStyle = '#ffffff'; // White background for emoji
+        circle.render.fillStyle = '#ffffff'; // White background for image
         circle.render.sprite = {
-          texture: '🐶', // Dog emoji
+          texture: 'https://via.placeholder.com/50x50?text=🐶', // Dog image URL
           xScale: 1,
           yScale: 1,
         };
