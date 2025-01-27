@@ -77,7 +77,8 @@ function generateLevel() {
       }
     },
     restitution: 0.8, // Bounciness
-    friction: 0.1 // Slipperiness
+    friction: 0.1, // Slipperiness
+    isStatic: false // Ensure this is false
   });
   World.add(world, cat);
 
@@ -95,13 +96,13 @@ function generateLevel() {
   World.add(world, ball);
 
   // Add random obstacles (walls, sand traps, portals, etc.)
- const sandTrap = Bodies.rectangle(window.innerWidth / 2, window.innerHeight / 2, 100, 10, { // Smaller sand trap
-  isStatic: true,
-  render: {
-    fillStyle: '#f4d03f',
-    opacity: 0.8
-  }
-});
+  const sandTrap = Bodies.rectangle(window.innerWidth / 2, window.innerHeight / 2, 100, 10, { // Smaller sand trap
+    isStatic: true,
+    render: {
+      fillStyle: '#f4d03f',
+      opacity: 0.8
+    }
+  });
   World.add(world, sandTrap);
 }
 
@@ -126,6 +127,11 @@ if (render && render.canvas) {
 
   mouseConstraint.mouse.element.addEventListener('mouseup', () => {
     console.log('Mouse up'); // Check if this logs when you release
+  });
+
+  // Debugging: Log which body is being dragged
+  Matter.Events.on(mouseConstraint, 'startdrag', (event) => {
+    console.log('Dragging body:', event.body); // Check if this logs the cat
   });
 } else {
   console.error('Render or canvas not initialized!');
