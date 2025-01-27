@@ -126,12 +126,12 @@ if (render && render.canvas) {
 
   // Debugging: Log mouse events
   mouseConstraint.mouse.element.addEventListener('mousedown', () => {
-    console.log('Mouse down'); // Check if this logs when you click
-  });
-
+    console.log('Mouse down');
+  }, { passive: true });
+  
   mouseConstraint.mouse.element.addEventListener('mouseup', () => {
-    console.log('Mouse up'); // Check if this logs when you release
-  });
+    console.log('Mouse up');
+  }, { passive: true });
 
   // Debugging: Log which body is being dragged
   Matter.Events.on(mouseConstraint, 'startdrag', (event) => {
