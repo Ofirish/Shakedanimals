@@ -24,7 +24,7 @@ Runner.run(Runner.create(), engine);
 let moves = 0;
 let level = 1;
 let score = 0;
-let cat, ball;
+let cat, ball; // Declare globally
 
 // Load assets
 const catImage = new Image();
@@ -68,7 +68,7 @@ function generateLevel() {
   World.add(world, walls);
 
   // Add cat
-  const cat = Bodies.circle(100, 100, 30, {
+  cat = Bodies.circle(100, 100, 30, {
     render: {
       sprite: {
         texture: catImage.src,
@@ -82,7 +82,7 @@ function generateLevel() {
   World.add(world, cat);
 
   // Add ball
-  const ball = Bodies.circle(window.innerWidth - 100, window.innerHeight - 100, 20, {
+  ball = Bodies.circle(window.innerWidth - 100, window.innerHeight - 100, 20, {
     render: {
       sprite: {
         texture: ballImage.src,
@@ -90,7 +90,7 @@ function generateLevel() {
         yScale: 0.5
       }
     },
-    isStatic: true // Ball doesn't move
+    isStatic: false // Allow the ball to move
   });
   World.add(world, ball);
 
@@ -122,10 +122,12 @@ if (render && render.canvas) {
   // Track moves
   let isDragging = false;
   mouseConstraint.mouse.element.addEventListener('mousedown', () => {
+    console.log('Mouse down'); // Debugging
     isDragging = true;
   });
 
   mouseConstraint.mouse.element.addEventListener('mouseup', () => {
+    console.log('Mouse up'); // Debugging
     if (isDragging) {
       moves++;
       document.getElementById('moves').textContent = moves;
@@ -139,6 +141,7 @@ if (render && render.canvas) {
 // Check for win condition
 Matter.Events.on(engine, 'collisionStart', (event) => {
   const pairs = event.pairs;
+  console.log('Collision detected:', pairs); // Debugging
   for (let pair of pairs) {
     if (pair.bodyA === cat && pair.bodyB === ball || pair.bodyA === ball && pair.bodyB === cat) {
       alert(`You won in ${moves} moves!`);
@@ -159,12 +162,24 @@ window.addEventListener('beforeunload', () => {
 });
 
 // Load game state from localStorage
-const savedGame = JSON.parse(localStorage.getItem('catPhysicsGame'));
+let savedGame;
+try {
+  savedGame = JSON.parse(localStorage.getItem('catPhysicsGame'));
+} catch (e) {
+  console.error('Failed to load saved game:', e);
+}
 if (savedGame) {
   level = savedGame.level;
   score = savedGame.score;
   document.getElementById('level').textContent = level;
   document.getElementById('score').textContent = score;
 }
+
+// Handle window resizing
+window.addEventListener('resize', () => {
+  render.canvas.width = window.innerWidth;
+  render.canvas.height = window.innerHeight;
+  generateLevel();
+});
 
 console.log('Game initialized!');
