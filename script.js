@@ -150,3 +150,30 @@ avatars.forEach(avatar => {
     circle = newBody;
   });
 });
+
+// Background Thumbnails Functionality
+const thumbnails = document.querySelectorAll('.thumbnail');
+const body = document.body;
+
+thumbnails.forEach(thumbnail => {
+  thumbnail.addEventListener('click', () => {
+    const bgUrl = thumbnail.getAttribute('data-bg');
+    body.style.backgroundImage = `url(${bgUrl})`;
+    body.style.backgroundSize = 'cover';
+    body.style.backgroundPosition = 'center';
+  });
+});
+
+// Automatically change background every 10 seconds
+let currentBgIndex = 0;
+const bgUrls = [
+  'https://github.com/Ofirish/Shakedanimals/blob/main/images/ssfbnw.jpg?raw=true',
+  'https://github.com/Ofirish/Shakedanimals/blob/main/images/ssfblue.jpg?raw=true',
+  'https://github.com/Ofirish/Shakedanimals/blob/main/images/ssfhand.jpg?raw=true',
+  'https://github.com/Ofirish/Shakedanimals/blob/main/images/ssfcoloring.jpg?raw=true',
+];
+
+setInterval(() => {
+  currentBgIndex = (currentBgIndex + 1) % bgUrls.length;
+  body.style.backgroundImage = `url(${bgUrls[currentBgIndex]})`;
+}, 10000);
