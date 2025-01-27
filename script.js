@@ -109,7 +109,7 @@ avatars.forEach(avatar => {
           render: {
             fillStyle: '#ffffff',
             sprite: {
-              texture: 'images/cat.png', // Updated path
+              texture: 'https://github.com/Ofirish/Shakedanimals/blob/main/images/cat.PNG?raw=true',
               xScale: 1,
               yScale: 1,
             },
@@ -124,7 +124,7 @@ avatars.forEach(avatar => {
           render: {
             fillStyle: '#ffffff',
             sprite: {
-              texture: 'images/dog.png', // Updated path
+              texture: 'https://github.com/Ofirish/Shakedanimals/blob/main/images/dog.PNG?raw=true',
               xScale: 1,
               yScale: 1,
             },
