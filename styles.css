@@ -1,46 +1,27 @@
 body {
   margin: 0;
   padding: 0;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  animation: glowingBackground 15s ease infinite;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #f0f0f0;
 }
 
-@keyframes glowingBackground {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.game-container {
+#board {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 500px;
+  height: 500px;
+  background-color: #ffffff;
+  border: 2px solid #333;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-#game {
-  width: 100%;
-  height: 100%;
-}
-
-.hud {
+#circle {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-.hud p {
-  margin: 5px 0;
-  font-size: 18px;
-  color: #333;
+  width: 50px;
+  height: 50px;
+  background-color: #3498db;
+  border-radius: 50%;
+  cursor: grab;
 }
