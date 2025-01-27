@@ -12,7 +12,7 @@ const render = Render.create({
   options: {
     width: window.innerWidth,
     height: window.innerHeight,
-    wireframes: false,
+    wireframes: true, // Enable this temporarily for debugging
     background: 'transparent',
   },
 });
@@ -21,7 +21,7 @@ Render.run(render);
 Runner.run(Runner.create(), engine);
 
 // Game variables
-let cat, ball; // Declare globally
+let cat, ball;
 
 // Load assets
 const catImage = new Image();
@@ -47,12 +47,10 @@ Promise.all([
     };
   }),
 ]).then(() => {
-  // Images are loaded, now generate the level
   generateLevel();
 });
 
 function generateLevel() {
-  // Clear existing bodies
   World.clear(world);
 
   // Add walls
@@ -65,27 +63,17 @@ function generateLevel() {
   World.add(world, walls);
 
   // Add cat
-  cat = Bodies.circle(100, 100, 20, { // Increased radius for better interaction
+  cat = Bodies.circle(100, 100, 30, { // Increased radius for testing
     render: {
       sprite: {
         texture: catImage.src,
-        xScale: 0.2,
-        yScale: 0.2,
+        xScale: 0.3,
+        yScale: 0.3,
       },
     },
-    restitution: 0.8,
-    friction: 0.1,
     isStatic: false,
-    density: 0.001, // Add realistic density
+    density: 0.001,
   });
-
-  // Set collision filter for mouse interaction
-  cat.collisionFilter = {
-    group: 1,
-    category: 0x0001,
-    mask: 0xFFFFFFFF,
-  };
-
   World.add(world, cat);
 
   // Add ball
@@ -109,14 +97,12 @@ if (render && render.canvas) {
     mouse: mouse,
     constraint: {
       stiffness: 0.2,
-      render: {
-        visible: false,
-      },
+      render: { visible: false },
     },
   });
   World.add(world, mouseConstraint);
 
-  // Debugging mouse events
+  // Debug mouse events
   render.canvas.addEventListener('mousedown', (e) => {
     console.log('Canvas clicked at:', e.clientX, e.clientY);
   });
@@ -125,26 +111,14 @@ if (render && render.canvas) {
     console.log('Start dragging:', event.body);
   });
 
-  Events.on(mouseConstraint, 'enddrag', (event) => {
-    console.log('End dragging:', event.body);
+  Events.on(mouseConstraint, 'mousemove', (event) => {
+    const mousePos = event.mouse.position;
+    const isMouseOverCat = Matter.Bounds.contains(cat.bounds, mousePos);
+    console.log('Mouse over cat:', isMouseOverCat);
   });
 } else {
   console.error('Render or canvas not initialized!');
 }
-
-// Check for win condition
-Events.on(engine, 'collisionStart', (event) => {
-  const pairs = event.pairs;
-  for (let pair of pairs) {
-    if (
-      (pair.bodyA === cat && pair.bodyB === ball) ||
-      (pair.bodyA === ball && pair.bodyB === cat)
-    ) {
-      alert('You won!');
-      generateLevel();
-    }
-  }
-});
 
 // Handle window resizing
 window.addEventListener('resize', () => {
