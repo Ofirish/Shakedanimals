@@ -151,12 +151,93 @@ avatars.forEach(avatar => {
   });
 });
 
+// Add touch support for avatars
+avatars.forEach(avatar => {
+  avatar.addEventListener('touchstart', (event) => {
+    event.preventDefault();
+    const shape = avatar.getAttribute('data-shape');
+
+    // Remove the current circle from the world
+    World.remove(world, circle);
+
+    // Create a new body based on the clicked avatar
+    let newBody;
+    switch (shape) {
+      case 'rectangle':
+        newBody = Bodies.rectangle(circle.position.x, circle.position.y, 50, 50, {
+          density: 0.04,
+          frictionAir: 0.05,
+          restitution: 0.95,
+          render: {
+            fillStyle: '#3498db',
+          },
+        });
+        break;
+      case 'triangle':
+        newBody = Bodies.polygon(circle.position.x, circle.position.y, 3, 30, {
+          density: 0.04,
+          frictionAir: 0.05,
+          restitution: 0.95,
+          render: {
+            fillStyle: '#e74c3c',
+          },
+        });
+        break;
+      case 'cat':
+        newBody = Bodies.circle(circle.position.x, circle.position.y, 25, {
+          density: 0.04,
+          frictionAir: 0.05,
+          restitution: 0.95,
+          render: {
+            fillStyle: '#ffffff',
+            sprite: {
+              texture: 'https://github.com/Ofirish/Shakedanimals/blob/main/images/cat.PNG?raw=true',
+              xScale: 1,
+              yScale: 1,
+            },
+          },
+        });
+        break;
+      case 'dog':
+        newBody = Bodies.circle(circle.position.x, circle.position.y, 25, {
+          density: 0.04,
+          frictionAir: 0.05,
+          restitution: 0.95,
+          render: {
+            fillStyle: '#ffffff',
+            sprite: {
+              texture: 'https://github.com/Ofirish/Shakedanimals/blob/main/images/dog.PNG?raw=true',
+              xScale: 1,
+              yScale: 1,
+            },
+          },
+        });
+        break;
+    }
+
+    // Add the new body to the world and update the circle reference
+    World.add(world, newBody);
+    circle = newBody;
+  });
+});
+
 // Background Thumbnails Functionality
 const thumbnails = document.querySelectorAll('.thumbnail');
 const body = document.body;
 
 thumbnails.forEach(thumbnail => {
   thumbnail.addEventListener('click', () => {
+    const bgUrl = thumbnail.getAttribute('data-bg');
+    body.style.backgroundImage = `url(${bgUrl})`;
+    body.style.backgroundSize = 'cover';
+    body.style.backgroundPosition = 'center';
+  });
+});
+
+// Add touch support for background thumbnails
+thumbnails.forEach(thumbnail => {
+  thumbnail.addEventListener('touchstart', (event) => {
+    event.preventDefault();
     const bgUrl = thumbnail.getAttribute('data-bg');
     body.style.backgroundImage = `url(${bgUrl})`;
     body.style.backgroundSize = 'cover';

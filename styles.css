@@ -154,3 +154,30 @@ body {
   overflow: hidden;
   border-radius: 10px;
 }
+<<<<<<< HEAD
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+  #board {
+    width: 100%;
+    height: 100%;
+  }
+
+  #avatars {
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .thumbnail {
+    width: 50px;
+    height: 50px;
+  }
+}
+=======
+
+>>>>>>> 078977a1c5cb1c4220bba4215978c54ef40e9549
