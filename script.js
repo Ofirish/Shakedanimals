@@ -78,7 +78,8 @@ function generateLevel() {
     },
     restitution: 0.8, // Bounciness
     friction: 0.1, // Slipperiness
-    isStatic: false // Ensure this is false
+    isStatic: false, // Ensure this is false
+    density: 0.001 // Add this for realistic physics behavior
   });
 // Set collision filter group to allow interaction with the mouse
 cat.collisionFilter.group = -1; // Add this line
