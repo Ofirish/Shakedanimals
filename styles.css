@@ -27,10 +27,41 @@ body {
   border: 2px solid #333;
   border-radius: 5px;
   transition: transform 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
 }
 
 .avatar:hover {
   transform: scale(1.1);
+}
+
+/* Rectangle Avatar */
+.avatar[data-shape="rectangle"] {
+  background-color: #3498db;
+}
+
+/* Triangle Avatar */
+.avatar[data-shape="triangle"] {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 50px solid #e74c3c;
+  background-color: transparent;
+}
+
+/* Cat Face Avatar */
+.avatar[data-shape="cat"]::before {
+  content: "🐱";
+  font-size: 30px;
+}
+
+/* Dog Face Avatar */
+.avatar[data-shape="dog"]::before {
+  content: "🐶";
+  font-size: 30px;
 }
 
 #board {

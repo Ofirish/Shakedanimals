@@ -73,11 +73,34 @@ Render.run(render);
 const avatars = document.querySelectorAll('.avatar');
 avatars.forEach(avatar => {
   avatar.addEventListener('click', () => {
-    const imageUrl = avatar.getAttribute('data-image');
-    circle.render.sprite = {
-      texture: imageUrl, // Set the texture to the clicked avatar's image
-      xScale: 1, // Scale the image to fit the circle
-      yScale: 1,
-    };
+    const shape = avatar.getAttribute('data-shape');
+
+    // Update the circle's appearance based on the clicked avatar
+    switch (shape) {
+      case 'rectangle':
+        circle.render.fillStyle = '#3498db'; // Blue rectangle
+        circle.render.sprite = undefined; // Remove sprite if any
+        break;
+      case 'triangle':
+        circle.render.fillStyle = '#e74c3c'; // Red triangle
+        circle.render.sprite = undefined; // Remove sprite if any
+        break;
+      case 'cat':
+        circle.render.fillStyle = '#ffffff'; // White background for emoji
+        circle.render.sprite = {
+          texture: '🐱', // Cat emoji
+          xScale: 1,
+          yScale: 1,
+        };
+        break;
+      case 'dog':
+        circle.render.fillStyle = '#ffffff'; // White background for emoji
+        circle.render.sprite = {
+          texture: '🐶', // Dog emoji
+          xScale: 1,
+          yScale: 1,
+        };
+        break;
+    }
   });
 });
