@@ -5,7 +5,7 @@ const engine = Engine.create();
 const { world } = engine;
 
 // Adjust gravity to make the ball bounce longer
-engine.world.gravity.y = 0.5; // Reduce gravity for longer bounces
+engine.world.gravity.y = 0.5;
 
 // Create a renderer
 const board = document.getElementById('board');
@@ -26,7 +26,7 @@ const circle = Bodies.circle(250, 250, 25, {
   frictionAir: 0.05, // Lower air resistance for slower deceleration
   restitution: 0.95, // Higher bounciness
   render: {
-    fillStyle: '#3498db', // Circle color
+    fillStyle: '#3498db', // Default circle color
   },
 });
 
@@ -68,3 +68,16 @@ World.add(world, [circle, ...walls, mouseConstraint]);
 // Run the engine and renderer
 Engine.run(engine);
 Render.run(render);
+
+// Avatar click functionality
+const avatars = document.querySelectorAll('.avatar');
+avatars.forEach(avatar => {
+  avatar.addEventListener('click', () => {
+    const imageUrl = avatar.getAttribute('data-image');
+    circle.render.sprite = {
+      texture: imageUrl, // Set the texture to the clicked avatar's image
+      xScale: 1, // Scale the image to fit the circle
+      yScale: 1,
+    };
+  });
+});
