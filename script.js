@@ -21,7 +21,7 @@ const render = Render.create({
 });
 
 // Add a circle with higher restitution and lower friction
-const circle = Bodies.circle(250, 250, 25, {
+let circle = Bodies.circle(250, 250, 25, {
   density: 0.04,
   frictionAir: 0.05, // Lower air resistance for slower deceleration
   restitution: 0.95, // Higher bounciness
@@ -75,32 +75,66 @@ avatars.forEach(avatar => {
   avatar.addEventListener('click', () => {
     const shape = avatar.getAttribute('data-shape');
 
-    // Update the circle's appearance based on the clicked avatar
+    // Remove the current circle from the world
+    World.remove(world, circle);
+
+    // Create a new body based on the clicked avatar
+    let newBody;
     switch (shape) {
       case 'rectangle':
-        circle.render.fillStyle = '#3498db'; // Blue rectangle
-        circle.render.sprite = undefined; // Remove sprite if any
+        newBody = Bodies.rectangle(circle.position.x, circle.position.y, 50, 50, {
+          density: 0.04,
+          frictionAir: 0.05,
+          restitution: 0.95,
+          render: {
+            fillStyle: '#3498db',
+          },
+        });
         break;
       case 'triangle':
-        circle.render.fillStyle = '#e74c3c'; // Red triangle
-        circle.render.sprite = undefined; // Remove sprite if any
+        newBody = Bodies.polygon(circle.position.x, circle.position.y, 3, 30, {
+          density: 0.04,
+          frictionAir: 0.05,
+          restitution: 0.95,
+          render: {
+            fillStyle: '#e74c3c',
+          },
+        });
         break;
       case 'cat':
-        circle.render.fillStyle = '#ffffff'; // White background for image
-        circle.render.sprite = {
-          texture: 'cat.png', // Cat image URL
-          xScale: 1,
-          yScale: 1,
-        };
+        newBody = Bodies.circle(circle.position.x, circle.position.y, 25, {
+          density: 0.04,
+          frictionAir: 0.05,
+          restitution: 0.95,
+          render: {
+            fillStyle: '#ffffff',
+            sprite: {
+              texture: 'cat.png',
+              xScale: 1,
+              yScale: 1,
+            },
+          },
+        });
         break;
       case 'dog':
-        circle.render.fillStyle = '#ffffff'; // White background for image
-        circle.render.sprite = {
-          texture: 'dog.png', // Dog image URL
-          xScale: 1,
-          yScale: 1,
-        };
+        newBody = Bodies.circle(circle.position.x, circle.position.y, 25, {
+          density: 0.04,
+          frictionAir: 0.05,
+          restitution: 0.95,
+          render: {
+            fillStyle: '#ffffff',
+            sprite: {
+              texture: 'dog.png',
+              xScale: 1,
+              yScale: 1,
+            },
+          },
+        });
         break;
     }
+
+    // Add the new body to the world and update the circle reference
+    World.add(world, newBody);
+    circle = newBody;
   });
 });
