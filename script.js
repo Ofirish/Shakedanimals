@@ -67,13 +67,13 @@ function generateLevel() {
   ];
   World.add(world, walls);
 
-  // Add cat
-  cat = Bodies.circle(100, 100, 30, {
+  // Add cat (smaller size)
+  cat = Bodies.circle(100, 100, 10, { // Radius reduced to 10
     render: {
       sprite: {
         texture: catImage.src,
-        xScale: 0.5,
-        yScale: 0.5
+        xScale: 0.2, // Smaller scaling
+        yScale: 0.2  // Smaller scaling
       }
     },
     restitution: 0.8, // Bounciness
@@ -81,13 +81,13 @@ function generateLevel() {
   });
   World.add(world, cat);
 
-  // Add ball
-  ball = Bodies.circle(window.innerWidth - 100, window.innerHeight - 100, 20, {
+  // Add ball (smaller size)
+  ball = Bodies.circle(window.innerWidth - 100, window.innerHeight - 100, 5, { // Radius reduced to 5
     render: {
       sprite: {
         texture: ballImage.src,
-        xScale: 0.5,
-        yScale: 0.5
+        xScale: 0.1, // Smaller scaling
+        yScale: 0.1  // Smaller scaling
       }
     },
     isStatic: false // Allow the ball to move
@@ -95,13 +95,13 @@ function generateLevel() {
   World.add(world, ball);
 
   // Add random obstacles (walls, sand traps, portals, etc.)
-  const sandTrap = Bodies.rectangle(window.innerWidth / 2, window.innerHeight / 2, 200, 20, {
-    isStatic: true,
-    render: {
-      fillStyle: '#f4d03f',
-      opacity: 0.8
-    }
-  });
+ const sandTrap = Bodies.rectangle(window.innerWidth / 2, window.innerHeight / 2, 100, 10, { // Smaller sand trap
+  isStatic: true,
+  render: {
+    fillStyle: '#f4d03f',
+    opacity: 0.8
+  }
+});
   World.add(world, sandTrap);
 }
 
