@@ -1,92 +1,55 @@
-const circle = document.getElementById('circle');
+const { Engine, Render, Runner, World, Bodies, Mouse, MouseConstraint } = Matter;
+
+// Create an engine
+const engine = Engine.create();
+const { world } = engine;
+
+// Create a renderer
 const board = document.getElementById('board');
-
-// Variables to track dragging state
-let isDragging = false;
-let offsetX = 0;
-let offsetY = 0;
-
-// Velocity for the ball
-let velocityX = 0;
-let velocityY = 0;
-
-// Animation loop
-function updatePosition() {
-  if (!isDragging) {
-    // Update the circle's position based on velocity
-    const boardRect = board.getBoundingClientRect();
-    const rect = circle.getBoundingClientRect();
-
-    let newX = rect.left + velocityX - boardRect.left;
-    let newY = rect.top + velocityY - boardRect.top;
-
-    // Bounce off the walls
-    if (newX <= 0 || newX >= boardRect.width - circle.offsetWidth) {
-      velocityX *= -1; // Reverse X direction
-      newX = Math.max(0, Math.min(newX, boardRect.width - circle.offsetWidth));
-    }
-    if (newY <= 0 || newY >= boardRect.height - circle.offsetHeight) {
-      velocityY *= -1; // Reverse Y direction
-      newY = Math.max(0, Math.min(newY, boardRect.height - circle.offsetHeight));
-    }
-
-    // Update the circle's position
-    circle.style.left = `${newX}px`;
-    circle.style.top = `${newY}px`;
-  }
-
-  // Keep updating the position
-  requestAnimationFrame(updatePosition);
-}
-
-// Start the animation loop
-updatePosition();
-
-// Mouse down: Start dragging
-circle.addEventListener('mousedown', (e) => {
-  isDragging = true;
-  circle.style.cursor = 'grabbing';
-
-  // Stop the velocity when dragging starts
-  velocityX = 0;
-  velocityY = 0;
-
-  // Calculate the offset between the mouse position and the circle's position
-  const rect = circle.getBoundingClientRect();
-  offsetX = e.clientX - rect.left;
-  offsetY = e.clientY - rect.top;
+const render = Render.create({
+  element: board,
+  engine: engine,
+  options: {
+    width: 500,
+    height: 500,
+    wireframes: false,
+    background: '#ffffff',
+  },
 });
 
-// Mouse move: Drag the circle
-document.addEventListener('mousemove', (e) => {
-  if (!isDragging) return;
-
-  // Calculate the new position
-  const boardRect = board.getBoundingClientRect();
-  let newX = e.clientX - boardRect.left - offsetX;
-  let newY = e.clientY - boardRect.top - offsetY;
-
-  // Constrain the circle within the board
-  newX = Math.max(0, Math.min(newX, boardRect.width - circle.offsetWidth));
-  newY = Math.max(0, Math.min(newY, boardRect.height - circle.offsetHeight));
-
-  // Update the circle's position
-  circle.style.left = `${newX}px`;
-  circle.style.top = `${newY}px`;
+// Add a circle
+const circle = Bodies.circle(250, 250, 25, {
+  density: 0.04,
+  frictionAir: 0.1,
+  restitution: 0.9,
+  render: {
+    fillStyle: '#3498db',
+  },
 });
 
-// Mouse up: Stop dragging and set velocity
-document.addEventListener('mouseup', (e) => {
-  if (!isDragging) return;
+// Add walls
+const walls = [
+  Bodies.rectangle(250, 0, 500, 10, { isStatic: true }), // Top
+  Bodies.rectangle(250, 500, 500, 10, { isStatic: true }), // Bottom
+  Bodies.rectangle(0, 250, 10, 500, { isStatic: true }), // Left
+  Bodies.rectangle(500, 250, 10, 500, { isStatic: true }), // Right
+];
 
-  isDragging = false;
-  circle.style.cursor = 'grab';
-
-  // Calculate velocity based on the release movement
-  const rect = circle.getBoundingClientRect();
-  const boardRect = board.getBoundingClientRect();
-
-  // Release velocity based on cursor's movement
-  velocityX = (e.movementX || 0) * 0.5; // Scale down movement for smoother motion
-  velocityY = (e.movementY || 0) * 0.5;
+// Add mouse control
+const mouse = Mouse.create(render.canvas);
+const mouseConstraint = MouseConstraint.create(engine, {
+  mouse: mouse,
+  constraint: {
+    stiffness: 0.2,
+    render: {
+      visible: false,
+    },
+  },
 });
+
+// Add everything to the world
+World.add(world, [circle, ...walls, mouseConstraint]);
+
+// Run the engine and renderer
+Engine.run(engine);
+Render.run(render);
