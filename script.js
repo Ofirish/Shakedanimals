@@ -80,7 +80,11 @@ function generateLevel() {
     friction: 0.1, // Slipperiness
     isStatic: false // Ensure this is false
   });
-  World.add(world, cat);
+// Set collision filter group to allow interaction with the mouse
+cat.collisionFilter.group = -1; // Add this line
+
+// Add the cat to the world
+World.add(world, cat);
 
   // Add ball (smaller size)
   ball = Bodies.circle(window.innerWidth - 100, window.innerHeight - 100, 5, { // Radius reduced to 5
