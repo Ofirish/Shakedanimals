@@ -119,20 +119,13 @@ if (render && render.canvas) {
   });
   World.add(world, mouseConstraint);
 
-  // Track moves
-  let isDragging = false;
+  // Debugging: Log mouse events
   mouseConstraint.mouse.element.addEventListener('mousedown', () => {
-    console.log('Mouse down'); // Debugging
-    isDragging = true;
+    console.log('Mouse down'); // Check if this logs when you click
   });
 
   mouseConstraint.mouse.element.addEventListener('mouseup', () => {
-    console.log('Mouse up'); // Debugging
-    if (isDragging) {
-      moves++;
-      document.getElementById('moves').textContent = moves;
-      isDragging = false;
-    }
+    console.log('Mouse up'); // Check if this logs when you release
   });
 } else {
   console.error('Render or canvas not initialized!');
