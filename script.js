@@ -258,3 +258,9 @@ setInterval(() => {
   currentBgIndex = (currentBgIndex + 1) % bgUrls.length;
   body.style.backgroundImage = `url(${bgUrls[currentBgIndex]})`;
 }, 10000);
+
+// Refresh button functionality
+const refreshButton = document.getElementById('refresh-button');
+refreshButton.addEventListener('click', () => {
+  location.reload();
+});
