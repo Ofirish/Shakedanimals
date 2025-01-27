@@ -88,7 +88,7 @@ avatars.forEach(avatar => {
       case 'cat':
         circle.render.fillStyle = '#ffffff'; // White background for image
         circle.render.sprite = {
-          texture: 'https://via.placeholder.com/50x50?text=🐱', // Cat image URL
+          texture: 'cat.png', // Cat image URL
           xScale: 1,
           yScale: 1,
         };
@@ -96,7 +96,7 @@ avatars.forEach(avatar => {
       case 'dog':
         circle.render.fillStyle = '#ffffff'; // White background for image
         circle.render.sprite = {
-          texture: 'https://via.placeholder.com/50x50?text=🐶', // Dog image URL
+          texture: 'dog.png', // Dog image URL
           xScale: 1,
           yScale: 1,
         };
