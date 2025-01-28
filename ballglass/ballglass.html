@@ -36,6 +36,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      position: relative;
     }
 
     canvas {
@@ -50,6 +51,24 @@
       margin-top: 10px;
       font-size: 14px;
       text-align: center;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background 0.3s ease;
+    }
+
+    .back-button:hover {
+      background: rgba(255, 255, 255, 0.4);
     }
 
     @media (max-width: 600px) {
@@ -67,8 +86,9 @@
 </head>
 <body>
   <div class="glass-container">
+    <a href="https://ofirish.github.io/Shakedanimals/" class="back-button">Back to Home</a>
     <canvas width="800" height="350"></canvas>
-    <p>Press space to reset or click and hold to add more balls.</p>
+    <p>Press space to reset or click/touch and hold to add more balls.</p>
   </div>
 
   <script>
@@ -78,7 +98,7 @@
     const H = canvas.height;
 
     var numBalls = 30;
-    var grav = [0, -0.1];
+    var grav = [0, -0.1]; // Initial gravity
 
     function Ball(x, y, dx, dy, r) {
       this.x = x;
@@ -144,6 +164,7 @@
       y: undefined
     };
 
+    // Mouse events
     canvas.addEventListener('mousedown', function (event) {
       mouseDown = true;
     });
@@ -153,6 +174,32 @@
     canvas.addEventListener('mousemove', function (event) {
       mouse.x = event.offsetX;
       mouse.y = event.offsetY;
+    });
+
+    // Touch events
+    canvas.addEventListener('touchstart', function (event) {
+      mouseDown = true;
+      event.preventDefault();
+    });
+    canvas.addEventListener('touchend', function (event) {
+      mouseDown = false;
+    });
+    canvas.addEventListener('touchmove', function (event) {
+      var touch = event.touches[0];
+      var rect = canvas.getBoundingClientRect();
+      mouse.x = touch.clientX - rect.left;
+      mouse.y = touch.clientY - rect.top;
+      event.preventDefault();
+    });
+
+    // Tilt detection
+    window.addEventListener('deviceorientation', function (event) {
+      var tiltX = event.gamma; // Left/right tilt in degrees
+      var tiltY = event.beta; // Front/back tilt in degrees
+
+      // Adjust gravity based on tilt
+      grav[0] = (tiltX / 90) * 0.2; // Scale tilt to a reasonable gravity value
+      grav[1] = (tiltY / 90) * 0.2;
     });
 
     function animate() {
@@ -165,7 +212,7 @@
       }
       for (var ball of balls) {
         ball.update();
-        for (var ball2 of balls) { //Not the most efficient way to check every pair, but this is just a rough version
+        for (var ball2 of balls) { // Not the most efficient way to check every pair, but this is just a rough version
           if (ball !== ball2) {
             var collision = checkCollision(ball, ball2);
             if (collision[0]) {
@@ -208,7 +255,7 @@
       ballB.dy += 1 / ballB.r * impulse[1];
     }
 
-    function adjustPositions(ballA, ballB, depth) { //Inefficient implementation for now
+    function adjustPositions(ballA, ballB, depth) { // Inefficient implementation for now
       const percent = 0.2;
       const slop = 0.01;
       var correction = (Math.max(depth - slop, 0) / (1 / ballA.r + 1 / ballB.r)) * percent;
