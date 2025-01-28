@@ -67,11 +67,12 @@ Matter.Events.on(engine, 'beforeUpdate', () => {
   const { x, y } = circle.position;
   const radius = circle.circleRadius || 25; // Default radius for non-circle shapes
 
-  // Constrain the avatars within the board boundaries
+  // Constrain the ball within the board boundaries
+  const boardRect = document.getElementById('board').getBoundingClientRect();
   if (x - radius < 0) circle.position.x = radius;
-  if (x + radius > 500) circle.position.x = 500 - radius;
+  if (x + radius > boardRect.width) circle.position.x = boardRect.width - radius;
   if (y - radius < 0) circle.position.y = radius;
-  if (y + radius > 500) circle.position.y = 500 - radius;
+  if (y + radius > boardRect.height) circle.position.y = boardRect.height - radius;
 });
 
 // Add everything to the world
