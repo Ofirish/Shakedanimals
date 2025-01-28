@@ -35,14 +35,14 @@ Render.run(render, {
 
 // Squash and Stretch Effect on Collisions
 Matter.Events.on(engine, 'collisionStart', (event) => {
-  const pairs = event.pairs;
-  pairs.forEach((pair) => {
-    if (pair.bodyA === circle || pair.bodyB === circle) {
-      // Apply squash/stretch effect
-      Matter.Body.scale(circle, 1.2, 0.8); // Squash horizontally, stretch vertically
-      setTimeout(() => {
-        Matter.Body.scale(circle, 1 / 1.2, 1 / 0.8); // Reset to original shape
-      }, 100); // Duration of the effect
-    }
+    const pairs = event.pairs;
+    pairs.forEach((pair) => {
+      if (pair.bodyA === circle || pair.bodyB === circle) {
+        // Apply subtle squash/stretch effect
+        Matter.Body.scale(circle, 1.1, 0.9); // Less pronounced effect
+        setTimeout(() => {
+          Matter.Body.scale(circle, 1 / 1.1, 1 / 0.9); // Reset to original shape
+        }, 100); // Duration of the effect
+      }
+    });
   });
-});
