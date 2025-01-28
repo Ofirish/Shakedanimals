@@ -3,28 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Draggable Circle with CSS Avatars</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Whimsical Magic Portal</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url('https://github.com/Ofirish/Shakedanimals/blob/main/images/ssfhand.jpg?raw=true'); /* Replace with your image URL */
+      background-size: cover;
+      background-position: center;
+      font-family: 'Georgia', serif;
+      color: #fff;
+      text-align: center;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .button {
+      display: inline-block;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      color: #fff;
+      background: linear-gradient(135deg, #6e8efb, #4a6cf7);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+  </style>
 </head>
 <body>
-  <div id="background-thumbnails">
-    <div class="thumbnail" data-bg="https://github.com/Ofirish/Shakedanimals/blob/main/images/ssfbnw.jpg?raw=true"></div>
-    <div class="thumbnail" data-bg="https://github.com/Ofirish/Shakedanimals/blob/main/images/ssfblue.jpg?raw=true"></div>
-    <div class="thumbnail" data-bg="https://github.com/Ofirish/Shakedanimals/blob/main/images/ssfhand.jpg?raw=true"></div>
-    <div class="thumbnail" data-bg="https://github.com/Ofirish/Shakedanimals/blob/main/images/ssfcoloring.jpg?raw=true"></div>
+  <div class="container">
+    <h1>Welcome to the Whimsical Magic Portal</h1>
+    <a href="https://ofirish.github.io/Shakedanimals/BounceDeBall.html" class="button">Enter the Magical World</a>
   </div>
-  <div id="container">
-    <div id="avatars">
-      <div class="avatar" data-shape="rectangle"></div>
-      <div class="avatar" data-shape="triangle"></div>
-      <div class="avatar" data-shape="cat"></div>
-      <div class="avatar" data-shape="dog"></div>
-    </div>
-    <div id="board"></div>
-  </div>
-  <button id="refresh-button">Refresh</button>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
-  <script src="script.js"></script>
-  <script src="enhancements.js"></script>
 </body>
 </html>
