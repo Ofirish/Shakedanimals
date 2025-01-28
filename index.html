@@ -112,6 +112,11 @@
       animation: glow 3s ease-in-out infinite;
     }
 
+    .button-container {
+      display: flex;
+      gap: 20px; /* Adjust the gap between buttons as needed */
+    }
+
     .button {
       color: #fff;
       font-weight: 600;
@@ -242,13 +247,16 @@
 <body>
   <div class="container">
     <h1>Welcome to Shaked's Magical Portal</h1>
-    <a href="bdb/BounceDeBall.html" class="button">
-      <span class="text">BounceDeBall</span>
-      <div class="shimmer"></div>
+    <div class="button-container">
+      <a href="bdb/BounceDeBall.html" class="button">
+        <span class="text">BounceDeBall</span>
+        <div class="shimmer"></div>
+      </a>
       <a href="ballglass/ballglass.html" class="button">
-      <span class="text">Ball Glass</span>
-      <div class="shimmer"></div>
-    </a>
+        <span class="text">Ball Glass</span>
+        <div class="shimmer"></div>
+      </a>
+    </div>
   </div>
 
   <script>
