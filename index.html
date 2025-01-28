@@ -64,15 +64,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-image: radial-gradient(
-        circle at 50% 0%,
-        rgb(67, 54, 74) 16.4%,
-        rgb(47, 48, 67) 68.2%,
-        rgb(27, 23, 36) 99.1%
-      );
+      background-image: url('/images/ssfcoloring.jpg?raw=true'); /* Replace with your image URL */
+      background-size: cover;
+      background-position: center;
       font-family: 'Georgia', serif;
       color: #fff;
       text-align: center;
+      overflow: hidden; /* Prevent scrollbars */
     }
 
     .container {
@@ -192,15 +190,62 @@
     .button.active .text {
       animation: text 0.66s ease-in 1 both;
     }
+
+    /* Sparkle Trail Effect */
+    .sparkle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.8), transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: sparkle-fade 1s ease-out forwards;
+    }
+
+    @keyframes sparkle-fade {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Welcome to Shaked's Magical Portal</h1>
-    <a href="https://ofirish.github.io/Shakedanimals/BounceDeBall.html" class="button">
+    <h1>Welcome to the Whimsical Magic Portal</h1>
+    <a href="/bdb/BounceDeBall.html" class="button">
       <span class="text">Enter the Magical World</span>
       <div class="shimmer"></div>
     </a>
   </div>
+
+  <script>
+    // Sparkle Trail Effect
+    document.addEventListener('mousemove', (e) => {
+      createSparkle(e.clientX, e.clientY);
+    });
+
+    document.addEventListener('touchmove', (e) => {
+      const touch = e.touches[0];
+      createSparkle(touch.clientX, touch.clientY);
+    });
+
+    function createSparkle(x, y) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = `${x - 5}px`; // Center the sparkle
+      sparkle.style.top = `${y - 5}px`; // Center the sparkle
+      document.body.appendChild(sparkle);
+
+      // Remove the sparkle after the animation ends
+      sparkle.addEventListener('animationend', () => {
+        sparkle.remove();
+      });
+    }
+  </script>
 </body>
 </html>
