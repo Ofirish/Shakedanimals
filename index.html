@@ -57,6 +57,30 @@
       }
     }
 
+    @keyframes glow {
+      0% {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.5);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.8);
+      }
+      100% {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -78,12 +102,14 @@
       padding: 40px;
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      animation: float 4s ease-in-out infinite;
     }
 
     h1 {
       font-size: 3rem;
       margin-bottom: 20px;
       text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+      animation: glow 3s ease-in-out infinite;
     }
 
     .button {
@@ -177,7 +203,7 @@
     }
 
     .button .text {
-      color: transparent;
+      color: #fff; /* Make text visible */
       background-clip: text;
       background-color: var(--bg);
       background-image: linear-gradient(120deg, transparent, hsla(var(--glow-hue), 100%, 80%, 0.66) 40%, hsla(var(--glow-hue), 100%, 90%, 0.9) 50%, transparent 52%);
@@ -216,7 +242,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>Welcome to the Shaked's Magical Portal</h1>
+    <h1>Welcome to Shaked's Magical Portal</h1>
     <a href="bdb/BounceDeBall.html" class="button">
       <span class="text">Enter the Magical World</span>
       <div class="shimmer"></div>
