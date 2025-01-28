@@ -6,17 +6,70 @@
   <title>Bouncing Balls Simulation</title>
   <style>
     * {
-      margin: 5px;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      font-family: Arial, sans-serif;
+      color: white;
+      overflow: hidden;
+    }
+
+    .glass-container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 90%;
+      max-width: 800px;
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     canvas {
-      border: 1px solid black;
+      width: 100%;
+      height: 100%;
+      border-radius: 15px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    p {
+      margin-top: 10px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .glass-container {
+        width: 95%;
+        height: 90vh;
+        padding: 10px;
+      }
+
+      p {
+        font-size: 12px;
+      }
     }
   </style>
 </head>
 <body>
-  <canvas width="800" height="350"></canvas>
-  <p>Press space to reset or click and hold to add more balls.</p>
+  <div class="glass-container">
+    <canvas width="800" height="350"></canvas>
+    <p>Press space to reset or click and hold to add more balls.</p>
+  </div>
 
   <script>
     var canvas = document.querySelector('canvas');
@@ -98,8 +151,8 @@
       mouseDown = false;
     });
     canvas.addEventListener('mousemove', function (event) {
-      mouse.x = event.x - 15;
-      mouse.y = event.y - 15;
+      mouse.x = event.offsetX;
+      mouse.y = event.offsetY;
     });
 
     function animate() {
