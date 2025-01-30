@@ -94,6 +94,16 @@ avatars.forEach(avatar => {
     // Create a new body based on the clicked avatar
     let newBody;
     switch (shape) {
+      case 'circle':
+        newBody = Bodies.circle(circle.position.x, circle.position.y, 25, {
+          density: 0.04,
+          frictionAir: 0.05,
+          restitution: 0.95,
+          render: {
+            fillStyle: '#3498db', // Blue color for the circle
+          },
+        });
+        break;
       case 'rectangle':
         newBody = Bodies.rectangle(circle.position.x, circle.position.y, 50, 50, {
           density: 0.04,
@@ -164,6 +174,16 @@ avatars.forEach(avatar => {
     // Create a new body based on the clicked avatar
     let newBody;
     switch (shape) {
+      case 'circle':
+        newBody = Bodies.circle(circle.position.x, circle.position.y, 25, {
+          density: 0.04,
+          frictionAir: 0.05,
+          restitution: 0.95,
+          render: {
+            fillStyle: '#3498db', // Blue color for the circle
+          },
+        });
+        break;
       case 'rectangle':
         newBody = Bodies.rectangle(circle.position.x, circle.position.y, 50, 50, {
           density: 0.04,
