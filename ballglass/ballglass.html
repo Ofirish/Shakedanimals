@@ -45,6 +45,8 @@
       border-radius: 15px;
       background: rgba(0, 0, 0, 0.3);
       border: 1px solid rgba(255, 255, 255, 0.2);
+      /* Ensure the canvas maintains its aspect ratio */
+      aspect-ratio: 16 / 9;
     }
 
     p {
@@ -286,6 +288,14 @@
     // Reset button functionality
     const resetButton = document.querySelector('.reset-button');
     resetButton.addEventListener('click', reset);
+
+    function resizeCanvas() {
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
   </script>
 </body>
 </html>
