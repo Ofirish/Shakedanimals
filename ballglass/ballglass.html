@@ -199,7 +199,7 @@
 
       // Adjust gravity based on tilt
       grav[0] = (tiltX / 90) * 0.2; // Scale tilt to a reasonable gravity value
-      grav[1] = (tiltY / 90) * 0.2;
+      grav[1] = -(tiltY / 90) * 0.2; // Invert the tiltY value to correct upside-down behavior
     });
 
     function animate() {
