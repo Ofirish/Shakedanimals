@@ -53,10 +53,8 @@
       text-align: center;
     }
 
-    .back-button {
+    .back-button, .reset-button {
       position: absolute;
-      top: 10px;
-      left: 10px;
       padding: 10px 20px;
       background: rgba(255, 255, 255, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.3);
@@ -67,7 +65,17 @@
       transition: background 0.3s ease;
     }
 
-    .back-button:hover {
+    .back-button {
+      top: 10px;
+      left: 10px;
+    }
+
+    .reset-button {
+      top: 10px;
+      right: 10px;
+    }
+
+    .back-button:hover, .reset-button:hover {
       background: rgba(255, 255, 255, 0.4);
     }
 
@@ -87,6 +95,7 @@
 <body>
   <div class="glass-container">
     <a href="https://ofirish.github.io/Shakedanimals/" class="back-button">Back to Home</a>
+    <button class="reset-button">Reset</button>
     <canvas width="800" height="350"></canvas>
     <p>Press space to reset or click/touch and hold to add more balls.</p>
   </div>
@@ -269,6 +278,10 @@
       ballB.x += 1 / ballB.r * correction[0];
       ballB.y += 1 / ballB.r * correction[1];
     }
+
+    // Reset button functionality
+    const resetButton = document.querySelector('.reset-button');
+    resetButton.addEventListener('click', reset);
   </script>
 </body>
 </html>
