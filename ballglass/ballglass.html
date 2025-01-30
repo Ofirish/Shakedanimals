@@ -118,7 +118,11 @@
       this.color = 'hsl(' + (Math.random() * 360) + ',90%,50%)';
 
       this.draw = function () {
-        pen.fillStyle = this.color;
+        var gradient = pen.createRadialGradient(this.x, this.y, this.r * 0.3, this.x, this.y, this.r);
+        gradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+        gradient.addColorStop(0.7, this.color);
+        gradient.addColorStop(1, 'rgba(255, 255, 255, 0.1)');
+        pen.fillStyle = gradient;
         pen.beginPath();
         pen.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
         pen.fill();
