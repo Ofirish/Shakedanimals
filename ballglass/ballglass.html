@@ -55,7 +55,7 @@
       text-align: center;
     }
 
-    .back-button, .reset-button {
+    .back-button, .reset-button, .pop-button {
       position: absolute;
       padding: 10px 20px;
       background: rgba(255, 255, 255, 0.2);
@@ -77,7 +77,12 @@
       right: 10px;
     }
 
-    .back-button:hover, .reset-button:hover {
+    .pop-button {
+      top: 50px;
+      right: 10px;
+    }
+
+    .back-button:hover, .reset-button:hover, .pop-button:hover {
       background: rgba(255, 255, 255, 0.4);
     }
 
@@ -98,6 +103,7 @@
   <div class="glass-container">
     <a href="https://ofirish.github.io/Shakedanimals/" class="back-button">Back to Home</a>
     <button class="reset-button">Reset</button>
+    <button class="pop-button">POP!!</button>
     <canvas width="800" height="350"></canvas>
     <p>Press space to reset or click/touch and hold to add more balls.</p>
   </div>
@@ -288,6 +294,25 @@
     // Reset button functionality
     const resetButton = document.querySelector('.reset-button');
     resetButton.addEventListener('click', reset);
+
+    // Add event listener for the "POP!!" button
+    const popButton = document.querySelector('.pop-button');
+    popButton.addEventListener('click', function() {
+      balls = [];
+    });
+
+    // Add touch event listener to pop bubbles
+    canvas.addEventListener('touchstart', function(event) {
+      const touch = event.touches[0];
+      const rect = canvas.getBoundingClientRect();
+      const x = touch.clientX - rect.left;
+      const y = touch.clientY - rect.top;
+      balls = balls.filter(ball => {
+        const dx = ball.x - x;
+        const dy = ball.y - y;
+        return dx * dx + dy * dy > ball.r * ball.r;
+      });
+    });
 
     function resizeCanvas() {
       canvas.width = canvas.clientWidth;
