@@ -1,0 +1,210 @@
+/* General Styles */
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1a1a1a;
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
+}
+
+/* Background Thumbnails */
+#background-thumbnails {
+  position: absolute;
+  top: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.thumbnail:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+}
+
+/* Set background images for thumbnails */
+.thumbnail[data-bg="https://github.com/Ofirish/Shakedanimals/blob/main/images/ssfbnw.jpg?raw=true"] {
+  background-image: url('https://github.com/Ofirish/Shakedanimals/blob/main/images/ssfbnw.jpg?raw=true');
+}
+
+.thumbnail[data-bg="https://github.com/Ofirish/Shakedanimals/blob/main/images/ssfblue.jpg?raw=true"] {
+  background-image: url('https://github.com/Ofirish/Shakedanimals/blob/main/images/ssfblue.jpg?raw=true');
+}
+
+.thumbnail[data-bg="https://github.com/Ofirish/Shakedanimals/blob/main/images/ssfhand.jpg?raw=true"] {
+  background-image: url('https://github.com/Ofirish/Shakedanimals/blob/main/images/ssfhand.jpg?raw=true');
+}
+
+.thumbnail[data-bg="https://github.com/Ofirish/Shakedanimals/blob/main/images/ssfcoloring.jpg?raw=true"] {
+  background-image: url('https://github.com/Ofirish/Shakedanimals/blob/main/images/ssfcoloring.jpg?raw=true');
+}
+
+/* Container */
+#container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  flex-direction: column;
+}
+
+/* Avatars */
+#avatars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  border: 2px solid #333;
+  border-radius: 5px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  position: relative;
+}
+
+.avatar:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+}
+
+/* Glowing Border Animation */
+.avatar::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 5px;
+  background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc, #ffcc00);
+  background-size: 400% 400%;
+  z-index: -1;
+  animation: glowing 3s ease infinite;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Rectangle Avatar */
+.avatar[data-shape="rectangle"] {
+  background-color: #3498db;
+}
+
+/* Triangle Avatar */
+.avatar[data-shape="triangle"] {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 50px solid #e74c3c;
+  background-color: transparent;
+}
+
+/* Cat Face Avatar */
+.avatar[data-shape="cat"]::before {
+  content: "🐱";
+  font-size: 30px;
+  z-index: 1; /* Bring the emoji to the front */
+}
+
+/* Dog Face Avatar */
+.avatar[data-shape="dog"]::before {
+  content: "🐶";
+  font-size: 30px;
+  z-index: 1; /* Bring the emoji to the front */
+}
+
+/* Board */
+#board {
+  width: 50vw;
+  height: 50vw;
+  max-width: 500px;
+  max-height: 500px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid #fff;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+/* Refresh Button for Mobile */
+#refresh-button {
+  display: none;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 10;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+  #refresh-button {
+    display: block;
+  }
+
+  #board {
+    width: 75%;
+    height: 75%;
+  }
+
+  #avatars {
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .thumbnail {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (min-width: 601px) {
+  #avatars {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
